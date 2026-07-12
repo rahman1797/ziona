@@ -12,8 +12,8 @@ export function Footer() {
     <footer className="border-t border-border bg-primary text-primary-foreground">
       <Container className="grid gap-10 py-12 md:grid-cols-[1.2fr_0.8fr_1fr]">
         <div>
-          <Link href="/" className="font-serif text-3xl">
-            {brand.name}
+          <Link href="/" className="text-3xl">
+            <img className="h-16" src="https://lh3.googleusercontent.com/d/1Xx8N6aAeb83eUQcI29ZgIhGJ6a8MayBX" alt="" />
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-6 text-white/75">{brand.tagline}</p>
         </div>

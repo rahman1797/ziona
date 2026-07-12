@@ -16,20 +16,20 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "max-w-2xl",
+        "max-w-2xl flex flex-col gap-2",
         align === "center" && "mx-auto text-center",
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="font-serif text-4xl leading-tight text-foreground md:text-5xl">
+      <h2 className="text-2xl leading-tight text-foreground md:text-5xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-7 text-muted md:text-lg">{description}</p>
+        <p className="text-muted text-sm md:text-lg">{description}</p>
       ) : null}
     </div>
   );

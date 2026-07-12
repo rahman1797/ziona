@@ -40,7 +40,7 @@ export default async function ProductsPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <section className="bg-secondary py-14 md:py-20">
+      <section className="bg-secondary py-10 md:py-20">
         <Container>
           <SectionHeader
             eyebrow="Katalog"

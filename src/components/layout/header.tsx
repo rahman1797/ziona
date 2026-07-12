@@ -19,7 +19,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/70 bg-background backdrop-blur-xl">
       <Container className="flex h-16 items-center justify-between gap-6">
-        <Link href="/" className="font-serif text-2xl text-primary" aria-label="Beranda Ziona">
+        <Link href="/" className="text-2xl text-primary" aria-label="Beranda Ziona">
           <img className="h-10" src="https://lh3.googleusercontent.com/d/169u2J3RFy02_s2MbXKiSqZ5_U51pnC6H" alt={brand.name} />
         </Link>
         <nav className="hidden items-center gap-7 text-sm font-medium text-muted md:flex">

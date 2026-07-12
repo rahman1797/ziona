@@ -6,7 +6,7 @@ export default function NotFound() {
     <section className="grid min-h-[70vh] place-items-center bg-secondary py-20">
       <Container className="text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">404</p>
-        <h1 className="mt-4 font-serif text-5xl text-foreground md:text-7xl">
+        <h1 className="mt-4 text-5xl text-foreground md:text-7xl">
           Halaman tidak ditemukan
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-muted">

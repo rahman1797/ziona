@@ -103,7 +103,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
               {formatCategory(product.category)}
             </p>
-            <h1 className="mt-4 font-serif text-5xl leading-tight text-foreground">
+            <h1 className="mt-4 text-5xl leading-tight text-foreground">
               {product.name}
             </h1>
             <div className="mt-5 flex items-center gap-3">
