@@ -1,7 +1,7 @@
 export const brand = {
   name: "Ziona",
   tagline: "STYLE MEETS COMFORT",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://ziona-dad26.web.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://zionacollection-baf18.web.app",
   instagram: "https://www.instagram.com/ziona.collection/",
   whatsapp: "https://api.whatsapp.com/send?phone=6281280100253&text=Halo%2C%20boleh%20liat%20katalog%20Ziona%3F",
   email: "zionacollection.id@gmail.com",

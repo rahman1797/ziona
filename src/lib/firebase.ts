@@ -7,21 +7,21 @@ import { getStorage } from "firebase/storage";
 const firebaseConfig = {
   apiKey:
     process.env.NEXT_PUBLIC_FIREBASE_API_KEY ??
-    "AIzaSyCiSbeKV5HU5poxtrlkNjYQgExGQqfsFxQ",
+    "AIzaSyB4rl5YxFB6xSTYoxGNAz0Fv-BdCJi82uA",
   authDomain:
     process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ??
-    "ziona-dad26.firebaseapp.com",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "ziona-dad26",
+    "zionacollection-baf18.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "zionacollection-baf18",
   storageBucket:
     process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ??
-    "ziona-dad26.firebasestorage.app",
+    "zionacollection-baf18.firebasestorage.app",
   messagingSenderId:
-    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "1063861118195",
+    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "525639860334",
   appId:
     process.env.NEXT_PUBLIC_FIREBASE_APP_ID ??
-    "1:1063861118195:web:cd37725192f9d21a8c8386",
+    "1:525639860334:web:d7629921c99b27f3c8667f",
   measurementId:
-    process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? "G-RRQ9PC18LB",
+    process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? "G-2KZ4QCQR2K",
 };
 
 export const firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);

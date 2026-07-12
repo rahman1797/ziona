@@ -6,18 +6,18 @@ runConfig:
   memoryMiB: 512
 env:
   - variable: NEXT_PUBLIC_SITE_URL
-    value: https://ziona-dad26.web.app
+    value: https://zionacollection-baf18.web.app
   - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    value: AIzaSyCiSbeKV5HU5poxtrlkNjYQgExGQqfsFxQ
+    value: AIzaSyB4rl5YxFB6xSTYoxGNAz0Fv-BdCJi82uA
   - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    value: ziona-dad26.firebaseapp.com
+    value: zionacollection-baf18.firebaseapp.com
   - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    value: ziona-dad26
+    value: zionacollection-baf18
   - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    value: ziona-dad26.firebasestorage.app
+    value: zionacollection-baf18.firebasestorage.app
   - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-    value: "1063861118195"
+    value: "525639860334"
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
-    value: 1:1063861118195:web:cd37725192f9d21a8c8386
+    value: 1:525639860334:web:d7629921c99b27f3c8667f
   - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-    value: G-RRQ9PC18LB
+    value: G-2KZ4QCQR2K
