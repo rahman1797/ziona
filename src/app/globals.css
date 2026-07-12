@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8f7f3;
+  --foreground: #1C1C1C;
+  --primary: #5d5e4d;
+  --primary-foreground: #ffffff;
+  --secondary: #f1efea;
+  --accent: #c9b89a;
+  --muted: #7a776c;
+  --border: #ddd7ca;
+  --surface: #fffdf8;
+  --danger: #9f3434;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --shadow-soft: 0 24px 80px rgb(28 27 24 / 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.page-center {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 90%;
+}
+
+.hero {
+  background: url(https://lh3.googleusercontent.com/d/176ntu3a4LkpZioP87PBQ9H-NQZVPkfJn), #f1efea;
+  background-repeat: no-repeat;
+  background-position: right bottom, center;
+  background-size: auto 100%, cover;
+}
+
+::selection {
+  background: rgb(201 184 154 / 0.55);
+}
+
+a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
