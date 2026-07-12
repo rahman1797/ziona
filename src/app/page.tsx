@@ -11,7 +11,7 @@ import {
   getHeroBanner,
   getProducts,
   getTestimonials,
-} from "@/services/firestore";
+} from "@/services/catalog";
 
 export const revalidate = 300;
 

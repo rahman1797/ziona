@@ -10,9 +10,7 @@ import { cn } from "@/utils/cn";
 
 const navItems = [
   { href: "/", label: "Beranda" },
-  { href: "/products", label: "Katalog" },
-  { href: "/about", label: "Tentang" },
-  { href: "/contact", label: "Kontak" },
+  { href: "/products", label: "Katalog" }
 ];
 
 export function Header() {

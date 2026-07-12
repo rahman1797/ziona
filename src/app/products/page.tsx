@@ -6,7 +6,7 @@ import { ProductGrid, ProductGridSkeleton } from "@/components/product/product-g
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 import { brand } from "@/lib/constants";
-import { getProducts } from "@/services/firestore";
+import { getProducts } from "@/services/catalog";
 import { filterProducts, normalizeFilters } from "@/utils/filters";
 import { formatCategory } from "@/utils/format";
 

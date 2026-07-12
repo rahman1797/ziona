@@ -7,7 +7,7 @@ import { LinkButton } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 import { brand } from "@/lib/constants";
-import { getProductBySlug, getProducts } from "@/services/firestore";
+import { getProductBySlug, getProducts } from "@/services/catalog";
 import { formatCategory, formatColor, formatPrice } from "@/utils/format";
 
 type ProductPageProps = {

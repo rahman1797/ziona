@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { brand } from "@/lib/constants";
-import { getProducts } from "@/services/firestore";
+import { getProducts } from "@/services/catalog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();

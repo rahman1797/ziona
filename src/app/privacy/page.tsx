@@ -21,10 +21,10 @@ export default function PrivacyPage() {
         />
         <div className="mt-10 space-y-8 text-sm leading-7 text-muted">
           <p>
-            Ziona dapat memproses detail kontak pelanggan, catatan pesanan, aktivitas analitik, dan pesan dukungan. Data admin dilindungi melalui Firebase Authentication.
+            Ziona dapat memproses detail kontak pelanggan, catatan pesanan, aktivitas analitik, dan pesan dukungan untuk membantu proses pembelian.
           </p>
           <p>
-            Konten produk dan testimoni disimpan di Firestore. Gambar produk, kategori, dan hero yang diunggah disimpan di Firebase Storage.
+            Konten produk dan testimoni dapat dikelola melalui sumber data eksternal yang digunakan oleh tim Ziona.
           </p>
           <p>
             Pelanggan dapat meminta koreksi atau penghapusan informasi dukungan pribadi dengan menghubungi Ziona secara langsung.
