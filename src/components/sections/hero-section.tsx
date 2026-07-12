@@ -25,9 +25,6 @@ export function HeroSection({ banner }: { banner: HeroBanner }) {
               {banner.ctaLabel}
               <ArrowRight size={18} />
             </LinkButton>
-            <LinkButton href="/about" variant="outline">
-              Cerita Kami
-            </LinkButton>
           </div>
         </Reveal>
       </div>

@@ -5,10 +5,6 @@ import { brand } from "@/lib/constants";
 
 const footerLinks = [
   { href: "/products", label: "Katalog" },
-  { href: "/about", label: "Tentang" },
-  { href: "/contact", label: "Kontak" },
-  { href: "/privacy", label: "Privasi" },
-  { href: "/terms", label: "Ketentuan" },
 ];
 
 export function Footer() {

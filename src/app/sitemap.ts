@@ -4,7 +4,7 @@ import { getProducts } from "@/services/catalog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();
-  const staticRoutes = ["", "/products", "/about", "/contact", "/privacy", "/terms"];
+  const staticRoutes = ["", "/products"];
   const now = new Date();
 
   return [
