@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CatalogFilters } from "@/components/product/catalog-filters";
 import { Pagination } from "@/components/product/pagination";
-import { ProductGrid, ProductGridSkeleton } from "@/components/product/product-grid";
+import {
+  ProductGrid,
+  ProductGridSkeleton,
+  ProductLoadError,
+} from "@/components/product/product-grid";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 import { brand } from "@/lib/constants";
@@ -65,7 +69,12 @@ async function ProductsContent({
 }: {
   params: Record<string, string | string[] | undefined>;
 }) {
-  const products = await getProducts();
+  const result = await getProducts();
+  if (!result.ok) {
+    return <ProductLoadError message={result.error} />;
+  }
+
+  const products = result.products;
   const categoryOptions = [
     ...new Set(products.map((product) => product.category)),
   ].sort((a, b) => formatCategory(a).localeCompare(formatCategory(b)));
@@ -73,7 +82,7 @@ async function ProductsContent({
   const colorOptions = [
     ...new Set(products.flatMap((product) => product.colors)),
   ].sort((a, b) => a.localeCompare(b));
-  const result = filterProducts(products, filters);
+  const filteredProducts = filterProducts(products, filters);
   return (
     <>
       <CatalogFilters
@@ -82,17 +91,17 @@ async function ProductsContent({
         colorOptions={colorOptions}
       />
       <div className="mt-8 flex items-center justify-between gap-4 text-sm text-muted">
-        <p>{result.total} produk</p>
+        <p>{filteredProducts.total} produk</p>
         <p>
-          Halaman {result.currentPage} dari {result.totalPages}
+          Halaman {filteredProducts.currentPage} dari {filteredProducts.totalPages}
         </p>
       </div>
       <div className="mt-8">
-        <ProductGrid products={result.products} />
+        <ProductGrid products={filteredProducts.products} />
       </div>
       <Pagination
-        filters={{ ...filters, page: result.currentPage }}
-        totalPages={result.totalPages}
+        filters={{ ...filters, page: filteredProducts.currentPage }}
+        totalPages={filteredProducts.totalPages}
       />
     </>
   );

@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #f8f7f3;
-  --foreground: #1C1C1C;
+  --foreground: #222222;
   --primary: #5d5e4d;
   --primary-foreground: #ffffff;
   --secondary: #f1efea;
@@ -40,8 +41,8 @@ body {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  font-family: 'Inter', sans-serif;
 }
 
 .page-center {
@@ -51,18 +52,27 @@ body {
 }
 
 .hero {
-  background: url(https://lh3.googleusercontent.com/d/176ntu3a4LkpZioP87PBQ9H-NQZVPkfJn), #f1efea;
+  background: url(/assets/bg_hero_mobile.png) #F7F0E2;
   background-repeat: no-repeat;
-  background-position: right bottom, center;
-  background-size: auto 50%, cover;
+  background-position: right center, center;
+  background-size: 100%, cover;
 }
 
 @media (min-width: 768px) {
   .hero {
-    background: url(https://lh3.googleusercontent.com/d/176ntu3a4LkpZioP87PBQ9H-NQZVPkfJn), #f1efea;
+    background: url(/assets/bg_hero_desktop.png), #F7F0E2;
     background-repeat: no-repeat;
-    background-position: right bottom, center;
-    background-size: auto 100%, cover;
+    background-position: right center, center;
+    background-size: 100% 100%, cover;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    background: url(/assets/bg_hero_desktop.png), #F7F0E2;
+    background-repeat: no-repeat;
+    background-position: right center, center;
+    background-size: 100% auto, cover;
   }
 }
 

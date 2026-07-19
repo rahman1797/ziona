@@ -3,7 +3,8 @@ import { brand } from "@/lib/constants";
 import { getProducts } from "@/services/catalog";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await getProducts();
+  const result = await getProducts();
+  const products = result.ok ? result.products : [];
   const staticRoutes = ["", "/products"];
   const now = new Date();
 

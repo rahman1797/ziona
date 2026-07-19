@@ -7,7 +7,7 @@ import { cn } from "@/utils/cn";
 import { formatCategory, formatColor, formatPrice } from "@/utils/format";
 
 const swatches: Record<string, string> = {
-  black: "#1c1c1c",
+  black: "#222222",
   ivory: "#F1EFEA",
   sage: "#9CA48D",
   taupe: "#9D8F80",
@@ -33,11 +33,8 @@ export function ProductCard({ product }: { product: Product }) {
       <div onClick={() => setIsOpen(true)} className="flex w-full flex-col gap-4 text-left flex-1">
         <div className="relative overflow-hidden rounded-lg bg-secondary">
           <img src={image} alt={product.name} className="w-full object-cover transition duration-700 group-hover:scale-105" />
-          <span className="absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold text-white bg-[#5D5E4D]">
-            {product.category}
-          </span>
         </div>
-        <h3 className="font-medium text-foreground">{product.name}</h3>
+        <h3 className="font-medium text-foreground md:text-xl">{product.name}</h3>
         <div className="flex flex-col items-start justify-between pt-4 gap-4 border-t-2 border-[#5D5E4D]/10">
             <div className="mt-2 flex items-center gap-2 text-sm">
               <span className="font-semibold line-through">{formatPrice(product.basePrice)}</span>

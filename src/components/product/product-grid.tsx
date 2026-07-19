@@ -19,6 +19,15 @@ export function ProductGrid({ products }: { products: Product[] }) {
   );
 }
 
+export function ProductLoadError({ message }: { message: string }) {
+  return (
+    <div className="rounded-lg border border-[#B8925A]/35 bg-[#F1EFEA] p-8 text-center text-[#5D5E4D]">
+      <p className="font-semibold text-[#222222]">Produk belum bisa ditampilkan.</p>
+      <p className="mt-2 text-sm">{message}</p>
+    </div>
+  );
+}
+
 export function ProductGridSkeleton({ count = 5 }: { count?: number }) {
   return (
     <div className="grid gap-4 md:grid-cols-4 lg:grid-cols-5">

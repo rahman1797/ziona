@@ -1,5 +1,8 @@
 import { Suspense } from "react";
-import { ProductGridSkeleton } from "@/components/product/product-grid";
+import {
+  ProductGridSkeleton,
+  ProductLoadError,
+} from "@/components/product/product-grid";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FeaturedCollection } from "@/components/sections/featured-collection";
 import { HeroSection } from "@/components/sections/hero-section";
@@ -45,16 +48,25 @@ export default async function Home() {
         <HomeProducts />
       </Suspense>
       {/* <WhyChooseUs />
-      <Testimonials testimonials={testimonials} />
-      <FaqSection /> */}
+      <Testimonials testimonials={testimonials} /> */}
+      <FaqSection />
     </>
   );
 }
 
 async function HomeProducts() {
-  const products = await getProducts();
+  const result = await getProducts();
+  if (!result.ok) {
+    return (
+      <section>
+        <div className="page-center py-10">
+          <ProductLoadError message={result.error} />
+        </div>
+      </section>
+    );
+  }
 
-  return <FeaturedCollection products={products} />;
+  return <FeaturedCollection products={result.products} />;
 }
 
 function HomeProductsSkeleton() {

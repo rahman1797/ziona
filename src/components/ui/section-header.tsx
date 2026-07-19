@@ -16,16 +16,16 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "max-w-2xl flex flex-col gap-2",
+        "max-w-2xl flex flex-col gap-2 items-center text-center mx-auto",
         align === "center" && "mx-auto text-center",
       )}
     >
       {eyebrow ? (
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+        <p className="text-xs md:text-xl font-semibold uppercase text-[#5D5E4D]">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-2xl leading-tight text-foreground md:text-5xl">
+      <h2 className="text-2xl font-bold md:text-3xl text-[#5D5E4D]">
         {title}
       </h2>
       {description ? (

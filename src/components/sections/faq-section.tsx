@@ -1,39 +1,50 @@
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeader } from "@/components/ui/section-header";
+import { brand } from "@/lib/constants";
 
 const faqs = [
   {
-    question: "Bagaimana cara memilih ukuran?",
+    question: "Ukuran apa saja yang tersedia?",
     answer:
-      "Sebagian besar model Ziona mengikuti ukuran Indonesia. Jika ukuran kakimu berada di antara dua nomor atau lebih lebar, pilih ukuran yang lebih besar.",
+      "Ziona menyediakan ukuran mulai dari 36 hingga 41. Harap perhatikan panduan ukuran di halaman produk untuk memilih yang paling pas.",
   },
   {
-    question: "Apakah Ziona mengirim ke seluruh Indonesia?",
-    answer:
-      "Ya. Pesanan dikirim dari Jakarta dengan layanan terlacak ke kota besar dan alamat daerah.",
+    question: "Bagaimana cara memesan produk Ziona?",
+    answer: (
+      <>
+        Saat ini pemesanan dilakukan secara manual melalui WhatsApp. Silakan hubungi kami melalui kontak yang tertera{" "}
+        <a href={brand.whatsapp} target="_blank" rel="noreferrer" className="font-medium text-primary underline">
+          di sini
+        </a>
+        .
+      </>
+    ),
   },
   {
-    question: "Apakah produk bisa ditukar?",
-    answer:
-      "Penukaran tersedia untuk produk yang belum dipakai, masih dengan kemasan asli, dalam tujuh hari setelah diterima.",
+    question: "Jika ukuran yang saya inginkan tidak tersedia, berapa lama produk akan tersedia kembali?",
+    answer: (
+      <>
+        Produk kami restock setiap 1-2 minggu sekali. Silahkan hubungi kami melalui kontak yang tertera <a href={brand.whatsapp} target="_blank" rel="noreferrer" className="font-medium text-primary underline">
+          di sini
+        </a>.
+      </>
+    ),
   },
   {
-    question: "Bagaimana cara merawat sepatu?",
+    question: "Apakah jika saya membeli dalam jumlah banyak, ada harga spesial yang bisa saya dapatkan?",
     answer:
-      "Lap perlahan dengan kain kering yang lembut setelah dipakai, lalu simpan jauh dari panas langsung atau paparan matahari lama.",
+      "Ya, kami menyediakan opsi pembelian partai dalam jumlah banyak. Untuk info selengkapnya harap hubungi kami melalui kontak yang tertera ",
   },
 ];
 
 export function FaqSection() {
   return (
-    <section className="bg-secondary py-20">
-      <Container>
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+    <section className="bg-secondary">
+      
+        <div className="page-center flex flex-col gap-4 md:gap-10 py-10">
           <SectionHeader
-            eyebrow="FAQ"
-            title="Detail sebelum memesan"
-            description="Informasi ukuran, pengiriman, perawatan, dan penukaran agar pengalaman belanja lebih lancar."
+            title="Paling Sering Ditanyakan"
           />
           <div className="grid gap-3">
             {faqs.map((faq) => (
@@ -44,7 +55,6 @@ export function FaqSection() {
             ))}
           </div>
         </div>
-      </Container>
     </section>
   );
 }
