@@ -67,7 +67,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
   if (!product) notFound();
 
-  const related = allProducts
+  const related = (allProducts.ok ? allProducts.products : [])
     .filter((item) => item.category === product.category && item.id !== product.id)
     .slice(0, 4);
   const price = product.price;
