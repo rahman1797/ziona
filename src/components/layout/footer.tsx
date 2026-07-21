@@ -4,7 +4,8 @@ import { Container } from "@/components/ui/container";
 import { brand } from "@/lib/constants";
 
 const footerLinks = [
-  { href: "/products", label: "Katalog" },
+  { href: "/products", label: "Produk" },
+  { href: "/catalog", label: "Katalog" },
 ];
 
 export function Footer() {

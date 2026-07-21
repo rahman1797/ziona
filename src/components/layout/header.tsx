@@ -10,7 +10,8 @@ import { cn } from "@/utils/cn";
 
 const navItems = [
   { href: "/", label: "Beranda" },
-  { href: "/products", label: "Katalog" }
+  { href: "/products", label: "Produk" },
+  { href: "/catalog", label: "Katalog" },
 ];
 
 export function Header() {
