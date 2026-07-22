@@ -3,6 +3,8 @@ import { getCatalogItems } from "@/components/catalog/catalog-shared";
 import { brand } from "@/lib/constants";
 import { getProducts } from "@/services/catalog";
 
+/* eslint-disable @next/next/no-img-element */
+
 export const runtime = "nodejs";
 export const revalidate = 300;
 
@@ -12,13 +14,14 @@ const cardGap = 18;
 const cardHeight = 470;
 const horizontalPadding = 44;
 
-export async function GET() {
+export async function GET(request: Request) {
   const result = await getProducts();
   const products = result.ok ? result.products : [];
   const items = getCatalogItems(products);
   const rows = Math.ceil(items.length / 3);
   const productsHeight = rows * cardHeight + Math.max(rows - 1, 0) * cardGap;
   const sheetHeight = 195 + 165 + productsHeight + 135 + 115 + 54;
+  const origin = new URL(request.url).origin;
 
   const image = new ImageResponse(
     <div
@@ -32,7 +35,7 @@ export async function GET() {
         fontFamily: "sans-serif",
       }}
     >
-      <Header />
+      <Header logoUrl={`${origin}/assets/logo_ziona_catalog.png`} />
       <Intro />
 
       <div
@@ -208,7 +211,7 @@ export async function GET() {
   }
 }
 
-function Header() {
+function Header({ logoUrl }: { logoUrl: string }) {
   return (
     <div
       style={{
@@ -222,17 +225,17 @@ function Header() {
       }}
     >
       <div style={{ display: "flex", flexDirection: "column" }}>
-        <div
+        <img
+          src={logoUrl}
+          alt={brand.name}
           style={{
-            display: "flex",
-            fontFamily: "serif",
-            fontSize: 76,
-            lineHeight: 0.95,
+            width: 266,
+            height: 101,
+            objectFit: "contain",
+            objectPosition: "left center",
           }}
-        >
-          {brand.name}
-        </div>
-        <div style={{ display: "flex", marginTop: 6, fontSize: 25 }}>
+        />
+        <div style={{ display: "flex", marginTop: 4, fontSize: 25 }}>
           style meets comfort
         </div>
       </div>
@@ -416,27 +419,40 @@ function InfoPanel() {
           width: "50%",
           gap: 18,
           borderLeft: "1px solid #DDD7CA",
-          paddingLeft: 32,
+          paddingLeft: 30,
+          minWidth: 0,
         }}
       >
         <Icon type="gift" />
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
           <div style={{ display: "flex", fontSize: 21, fontWeight: 900 }}>
             CATATAN
           </div>
           <div
             style={{
               display: "flex",
+              flexDirection: "column",
               marginTop: 11,
-              fontSize: 14,
-              lineHeight: 1.55,
+              maxWidth: 300,
+              fontSize: 12,
+              lineHeight: 1.35,
               color: "rgba(34,34,34,0.82)",
             }}
           >
-            Harga belum termasuk biaya ongkir.
-            <br />
-            Harga spesial untuk pembelian partai, hubungi WA untuk info
-            selanjutnya.
+            <div style={{ display: "flex" }}>
+              Harga belum termasuk biaya ongkir.
+            </div>
+            <div style={{ display: "flex", marginTop: 5 }}>
+              Harga spesial untuk pembelian partai, hubungi WA untuk info
+              selanjutnya.
+            </div>
           </div>
         </div>
       </div>
