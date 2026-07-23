@@ -5,6 +5,8 @@ import { Header } from "@/components/layout/header";
 import { brand } from "@/lib/constants";
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next"
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
