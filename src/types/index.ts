@@ -26,6 +26,7 @@ export type Product = {
   sizes: ProductSize[];
   images: string[];
   variants?: ProductVariant[];
+  freeInsole?: string;
   stock: number;
 };
 

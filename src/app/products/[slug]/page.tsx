@@ -103,7 +103,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
               {formatCategory(product.category)}
             </p>
-            <h1 className="mt-4 text-5xl leading-tight text-foreground">
+            <h1 className="poppins mt-4 text-5xl leading-tight text-foreground">
               {product.name}
             </h1>
             <div className="mt-5 flex items-center gap-3">
@@ -113,7 +113,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
 
             <div className="mt-8 grid gap-6 border-y border-border py-6">
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                <h2 className="poppins text-sm font-semibold uppercase tracking-[0.18em] text-primary">
                   Warna
                 </h2>
                 <div className="mt-3 flex flex-wrap gap-2">
@@ -128,7 +128,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
                 </div>
               </div>
               <div>
-                <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+                <h2 className="poppins text-sm font-semibold uppercase tracking-[0.18em] text-primary">
                   Ukuran
                 </h2>
                 <div className="mt-3 flex flex-wrap gap-2">

@@ -12,6 +12,7 @@ type ProductApiRow = {
   price?: unknown;
   description?: unknown;
   ready?: unknown;
+  freeInsole?: unknown;
 };
 
 type ProductGroup = {
@@ -28,50 +29,53 @@ export function mapProductsJson(payload: unknown): Product[] {
 
   const groups = new Map<string, ProductGroup>();
 
-  payload.filter(isProductApiRow).filter(isReadyRow).forEach((row) => {
-    const code = readString(row.productCode);
-    const category = normalizeCategory(
-      readString(row.category),
-      readString(row.description),
-    );
-    const image = readImage(row);
+  payload
+    .filter(isProductApiRow)
+    .filter(isReadyRow)
+    .forEach((row) => {
+      const code = readString(row.productCode);
+      const category = normalizeCategory(
+        readString(row.category),
+        readString(row.description),
+      );
+      const image = readImage(row);
 
-    if (!code || !category || !image) return;
+      if (!code || !category || !image) return;
 
-    const color = toTitle(readString(row.color) || "Default");
-    const colorHex = normalizeHexColor(readString(row.colorHex));
-    const variantKey = normalizeKey(color);
+      const color = toTitle(readString(row.color) || "Default");
+      const colorHex = normalizeHexColor(readString(row.colorHex));
+      const variantKey = normalizeKey(color);
 
-    if (!groups.has(code)) {
-      groups.set(code, {
-        code,
-        rows: [],
-        variants: new Map(),
-        colors: new Set(),
-        images: new Set(),
-        stock: 0,
+      if (!groups.has(code)) {
+        groups.set(code, {
+          code,
+          rows: [],
+          variants: new Map(),
+          colors: new Set(),
+          images: new Set(),
+          stock: 0,
+        });
+      }
+
+      const group = groups.get(code);
+      if (!group) return;
+
+      const existingVariant = group.variants.get(variantKey);
+      const variantImages = unique([...(existingVariant?.images ?? []), image]);
+
+      group.rows.push(row);
+      group.colors.add(color);
+      group.images.add(image);
+      group.stock += 1;
+      group.variants.set(variantKey, {
+        color,
+        ...(colorHex ? { colorHex } : {}),
+        image: variantImages[0],
+        images: variantImages,
+        sizes: [],
+        stock: (existingVariant?.stock ?? 0) + 1,
       });
-    }
-
-    const group = groups.get(code);
-    if (!group) return;
-
-    const existingVariant = group.variants.get(variantKey);
-    const variantImages = unique([...(existingVariant?.images ?? []), image]);
-
-    group.rows.push(row);
-    group.colors.add(color);
-    group.images.add(image);
-    group.stock += 1;
-    group.variants.set(variantKey, {
-      color,
-      ...(colorHex ? { colorHex } : {}),
-      image: variantImages[0],
-      images: variantImages,
-      sizes: [],
-      stock: (existingVariant?.stock ?? 0) + 1,
     });
-  });
 
   return [...groups.values()]
     .map(groupToProduct)
@@ -103,6 +107,7 @@ function groupToProduct(group: ProductGroup): Product | null {
     sizes: [],
     images,
     variants,
+    freeInsole: group.rows.some((row) => isYes(row.freeInsole)) ? "yes" : "",
     stock: group.stock,
   };
 }
@@ -112,13 +117,22 @@ function isProductApiRow(value: unknown): value is ProductApiRow {
 }
 
 function isReadyRow(row: ProductApiRow) {
-  return ["yes", "y", "true", "1", "ready", "available", "ada", "ya"].includes(
-    readString(row.ready).toLowerCase(),
+  return (
+    isYes(row.ready) ||
+    ["ready", "available", "ada"].includes(readString(row.ready).toLowerCase())
+  );
+}
+
+function isYes(value: unknown) {
+  return ["yes", "y", "true", "1", "ya"].includes(
+    readString(value).toLowerCase(),
   );
 }
 
 function readImage(row: ProductApiRow) {
-  return readString(row.embedUrl) || normalizeDriveImageUrl(readString(row.image));
+  return (
+    readString(row.embedUrl) || normalizeDriveImageUrl(readString(row.image))
+  );
 }
 
 function normalizeCategory(
@@ -130,13 +144,25 @@ function normalizeCategory(
 
   if (["heels", "heel", "hak", "sepatuhak"].includes(normalized))
     return "heels";
-  if (["flats", "flat", "flatshoes", "flatshoe", "sepatuflat"].includes(normalized))
+  if (
+    ["flats", "flat", "flatshoes", "flatshoe", "sepatuflat"].includes(
+      normalized,
+    )
+  )
     return "flats";
-  if (["sandals", "sandal", "sandalwanita", "slides", "slide"].includes(normalized))
+  if (
+    ["sandals", "sandal", "sandalwanita", "slides", "slide"].includes(
+      normalized,
+    )
+  )
     return "sandals";
   if (["loafers", "loafer", "pennyloafer", "sepatuformal"].includes(normalized))
     return "loafers";
-  if (["sneakers", "sneaker", "sepatuolahraga", "sepatusantai"].includes(normalized))
+  if (
+    ["sneakers", "sneaker", "sepatuolahraga", "sepatusantai"].includes(
+      normalized,
+    )
+  )
     return "sneakers";
 
   if (

@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   },
   description:
     "Sepatu wanita premium minimalis dari brand lokal Indonesia. Temukan sepatu hak, flat, sandal, loafer, dan sneaker yang dibuat untuk kenyamanan elegan.",
+  icons: {
+    icon: "/assets/ziona_round.png",
+    apple: "/assets/ziona_round.png",
+  },
   alternates: {
     canonical: "/",
   },

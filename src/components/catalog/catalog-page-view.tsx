@@ -3,6 +3,8 @@ import type { CatalogItem } from "@/components/catalog/catalog-shared";
 import { formatCatalogPrice } from "@/components/catalog/catalog-shared";
 import { brand } from "@/lib/constants";
 
+const freeInsoleImage = "/assets/gratis_insole.png";
+
 export function CatalogPageView({ items }: { items: CatalogItem[] }) {
   return (
     <div className="min-h-screen bg-[#F1EFEA] py-0 text-[#222222] md:py-8">
@@ -14,7 +16,7 @@ export function CatalogPageView({ items }: { items: CatalogItem[] }) {
 
         <div className="px-5 py-7 md:px-11">
           <div className="mx-auto max-w-2xl text-center mb-5">
-            <h1 className="text-3xl font-bold leading-tight md:text-4xl">
+            <h1 className="text-2xl md:text-3xl font-bold leading-tight text-gray-900">
               Step into elegance, every day.
             </h1>
             <p className="mt-4 text-sm leading-7 text-[#222222]/80 md:text-lg">
@@ -50,16 +52,16 @@ export function CatalogPageView({ items }: { items: CatalogItem[] }) {
 
 function CatalogHero() {
   return (
-    <header className="flex items-center justify-between bg-[#5D5E4D] px-7 py-8 text-[#F1EFEA] md:px-16 md:py-10">
+    <header className="flex flex-row items-end justify-between bg-[#5D5E4D] px-7 py-8 text-[#F1EFEA] md:px-16 md:py-10">
       <div>
-        <img className="h-24" src="https://lh3.googleusercontent.com/d/1Xx8N6aAeb83eUQcI29ZgIhGJ6a8MayBX" alt="" />
-        <div className="mt-1 text-xl tracking-wide text-[#F1EFEA]/90 md:text-xl uppercase">
+        <img className="h-14 md:h-24" src="https://lh3.googleusercontent.com/d/1Xx8N6aAeb83eUQcI29ZgIhGJ6a8MayBX" alt="" />
+        <div className="mt-1 text-xs md:text-xl tracking-wide text-[#F1EFEA]/90 uppercase">
           style meets comfort
         </div>
       </div>
       <div className="text-right">
-        <div className="text-4xl leading-none md:text-5xl">Catalog</div>
-        <div className="mt-3 text-base font-medium text-[#F1EFEA]/90 md:text-2xl">
+        <div className="leading-none text-sm md:text-5xl">Catalog</div>
+        <div className="mt-1 md:mt-3 text-base font-medium text-[#F1EFEA]/90 text-xs md:text-2xl">
           #BanggaProdukIndonesia
         </div>
       </div>
@@ -68,13 +70,15 @@ function CatalogHero() {
 }
 
 function CatalogProductCard({ item }: { item: CatalogItem }) {
+  const hasFreeInsole = item.freeInsole?.toLowerCase() === "yes";
+
   return (
     <article className="relative flex w-full max-w-[305px] flex-col rounded-2xl border border-[#DDD7CA] bg-white/72 p-4 shadow-[0_2px_12px_rgba(34,34,34,0.04)]">
       <span className="absolute left-4 top-4 z-10 rounded-md bg-[#5D5E4D] px-2 py-1 font-mono text-lg font-bold leading-none text-white shadow-md">
         {item.number}
       </span>
 
-      <div className="flex h-[220px] items-center justify-center">
+      <div className="relative flex h-[220px] items-center justify-center">
         {item.image ? (
           <img
             src={item.image}
@@ -82,10 +86,17 @@ function CatalogProductCard({ item }: { item: CatalogItem }) {
             className="max-h-full w-full object-cover"
           />
         ) : null}
+        {hasFreeInsole ? (
+          <img
+            src={freeInsoleImage}
+            alt="Gratis insole"
+            className="absolute -bottom-5 -right-3 z-20 h-20 object-contain md:h-16"
+          />
+        ) : null}
       </div>
 
       <div className="mt-2 flex flex-1 flex-col">
-        <h2 className="text-xl font-bold tracking-wide">{item.title}</h2>
+        <h2 className="poppins text-xl font-bold tracking-wide">{item.title}</h2>
         <div className="mt-3 border-t border-[#DDD7CA] pt-3">
           <div className="flex items-center gap-5 text-base">
             {item.basePrice > item.price ? (
@@ -121,7 +132,7 @@ function InfoPanel() {
             <Ruler size={34} />
           </span>
           <div>
-            <h2 className="text-xl font-bold">TERSEDIA UKURAN</h2>
+            <h2 className="poppins text-xl font-bold">TERSEDIA UKURAN</h2>
             <div className="mt-2 text-3xl font-semibold">36 - 41</div>
             <p className="mt-2 text-sm font-medium leading-5 text-[#222222]/75">
               (Mohon konfirmasi terlebih dahulu ketersediaan stok)
@@ -133,7 +144,7 @@ function InfoPanel() {
             <Gift size={34} />
           </span>
           <div>
-            <h2 className="text-xl font-bold">CATATAN</h2>
+            <h2 className="poppins text-xl font-bold">CATATAN</h2>
             <ul className="mt-3 space-y-2 text-sm font-medium leading-5 text-[#222222]/80">
               <li>Harga belum termasuk biaya ongkir.</li>
               <li>Harga spesial untuk pembelian partai, hubungi WA untuk info selanjutnya.</li>

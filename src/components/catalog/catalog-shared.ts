@@ -13,6 +13,7 @@ export type CatalogItem = {
   image: string;
   basePrice: number;
   price: number;
+  freeInsole?: string;
 };
 
 const fallbackSwatches: Record<string, string> = {
@@ -45,6 +46,7 @@ export function getCatalogItems(products: Product[]) {
         image: variant.image || product.images[0] || "",
         basePrice: product.basePrice,
         price: product.price,
+        freeInsole: product.freeInsole,
       };
     });
   });

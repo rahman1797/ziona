@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { PDFDocument } from "pdf-lib";
 import { getCatalogItems } from "@/components/catalog/catalog-shared";
 import { brand } from "@/lib/constants";
 import { getProducts } from "@/services/catalog";
@@ -13,6 +14,7 @@ const cardWidth = 305;
 const cardGap = 18;
 const cardHeight = 470;
 const horizontalPadding = 44;
+const freeInsoleImage = "/assets/gratis_insole.png";
 
 export async function GET(request: Request) {
   const result = await getProducts();
@@ -47,59 +49,77 @@ export async function GET(request: Request) {
           padding: `0 ${horizontalPadding}px`,
         }}
       >
-        {items.map((item) => (
-          <div
-            key={item.id}
-            style={{
-              position: "relative",
-              width: cardWidth,
-              height: cardHeight,
-              display: "flex",
-              flexDirection: "column",
-              border: "1px solid #DDD7CA",
-              borderRadius: 12,
-              background: "rgba(255,255,255,0.72)",
-              padding: 16,
-            }}
-          >
+        {items.map((item) => {
+          const hasFreeInsole = item.freeInsole?.toLowerCase() === "yes";
+
+          return (
             <div
+              key={item.id}
               style={{
+                position: "relative",
+                width: cardWidth,
+                height: cardHeight,
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 42,
-                height: 34,
-                marginBottom: 8,
-                borderRadius: 6,
-                background: "#5D5E4D",
-                color: "#FFFFFF",
-                fontSize: 18,
-                fontWeight: 800,
-                lineHeight: 1,
+                flexDirection: "column",
+                border: "1px solid #DDD7CA",
+                borderRadius: 12,
+                background: "rgba(255,255,255,0.72)",
+                padding: 16,
               }}
             >
-              {item.number}
-            </div>
-            <div
-              style={{
-                height: 183,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              {item.image ? (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    objectFit: "contain",
-                  }}
-                />
-              ) : null}
-            </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 42,
+                  height: 34,
+                  marginBottom: 8,
+                  borderRadius: 6,
+                  background: "#5D5E4D",
+                  color: "#FFFFFF",
+                  fontSize: 18,
+                  fontWeight: 800,
+                  lineHeight: 1,
+                }}
+              >
+                {item.number}
+              </div>
+              <div
+                style={{
+                  position: "relative",
+                  height: 183,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : null}
+                {hasFreeInsole ? (
+                  <img
+                    src={`${origin}${freeInsoleImage}`}
+                    alt="Gratis insole"
+                    style={{
+                      position: "absolute",
+                      right: -12,
+                      bottom: -18,
+                      width: 78,
+                      height: 78,
+                      objectFit: "contain",
+                    }}
+                  />
+                ) : null}
+              </div>
             <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
               <div
                 style={{
@@ -173,8 +193,9 @@ export async function GET(request: Request) {
                 {item.colorLabel}
               </div>
             </div>
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
 
       <InfoPanel />
@@ -188,23 +209,37 @@ export async function GET(request: Request) {
 
   try {
     const png = await image.arrayBuffer();
+    const pdf = await PDFDocument.create();
+    const pdfImage = await pdf.embedPng(png);
+    const page = pdf.addPage([pdfImage.width, pdfImage.height]);
 
-    return new Response(png, {
+    page.drawImage(pdfImage, {
+      x: 0,
+      y: 0,
+      width: pdfImage.width,
+      height: pdfImage.height,
+    });
+
+    const bytes = await pdf.save();
+    const body = new ArrayBuffer(bytes.byteLength);
+    new Uint8Array(body).set(bytes);
+
+    return new Response(body, {
       headers: {
         "Cache-Control":
           "public, max-age=0, s-maxage=300, stale-while-revalidate=600",
-        "Content-Disposition": 'attachment; filename="katalog-ziona.png"',
-        "Content-Length": String(png.byteLength),
-        "Content-Type": "image/png",
+        "Content-Disposition": 'attachment; filename="katalog-ziona.pdf"',
+        "Content-Length": String(bytes.byteLength),
+        "Content-Type": "application/pdf",
       },
     });
   } catch (error) {
-    console.error("Failed to generate catalog download.", error);
+    console.error("Failed to generate catalog PDF.", error);
 
     return Response.json(
       {
         error:
-          "Gagal membuat file katalog. Coba refresh halaman, lalu download kembali.",
+          "Gagal membuat file PDF katalog. Coba refresh halaman, lalu download kembali.",
       },
       { status: 503 },
     );

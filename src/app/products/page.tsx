@@ -48,8 +48,8 @@ export default async function ProductsPage({
         <Container>
           <SectionHeader
             eyebrow="Katalog"
-            title="Pilih pasangan berikutnya"
-            description="Filter berdasarkan kategori, warna, urutan, dan rentang harga untuk menemukan sepatu harian yang rapi dan nyaman."
+            title="Temukan Pasangan Favoritmu"
+            description="Jelajahi koleksi Ziona dan gunakan filter untuk menemukan model yang paling sesuai dengan gaya dan kebutuhanmu."
           />
         </Container>
       </section>

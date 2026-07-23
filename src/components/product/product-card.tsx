@@ -19,8 +19,11 @@ const swatches: Record<string, string> = {
   beige: "#D8C8B4",
 };
 
+const freeInsoleImage = "/assets/gratis_insole.png";
+
 export function ProductCard({ product }: { product: Product }) {
   const price = product.price;
+  const hasFreeInsole = product.freeInsole?.toLowerCase() === "yes";
   const variants = useMemo(() => getVariants(product), [product]);
   const [activeColor, setActiveColor] = useState(variants[0]?.color ?? "");
   const [isOpen, setIsOpen] = useState(false);
@@ -30,23 +33,42 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group bg-white rounded-2xl p-4 ring-2 ring-[#5D5E4D]/10 flex flex-col gap-4">
-      <div onClick={() => setIsOpen(true)} className="flex w-full flex-col gap-4 text-left flex-1">
-        <div className="relative overflow-hidden rounded-lg bg-secondary">
-          <img src={image} alt={product.name} className="w-full object-cover transition duration-700 group-hover:scale-105" />
+      <div
+        onClick={() => setIsOpen(true)}
+        className="flex w-full flex-col gap-4 text-left flex-1"
+      >
+        <div className="relative rounded-lg bg-secondary">
+          <img
+            src={image}
+            alt={product.name}
+            className="w-full object-cover transition duration-700 group-hover:scale-105"
+          />
+          {hasFreeInsole ? (
+            <img
+              src={freeInsoleImage}
+              alt="Gratis insole"
+              className="absolute -bottom-12 -right-3 z-20 h-24 md:h-16 object-contain"
+            />
+          ) : null}
         </div>
-        <h3 className="font-medium text-foreground md:text-xl">{product.name}</h3>
+        <h3 className="font-medium text-foreground md:text-xl">
+          {product.name}
+        </h3>
         <div className="flex flex-col items-start justify-between pt-4 gap-4 border-t-2 border-[#5D5E4D]/10">
-            <div className="mt-2 flex items-center gap-2 text-sm">
-              <span className="font-semibold line-through">{formatPrice(product.basePrice)}</span>
-              <span className="font-semibold">{formatPrice(product.price)}</span>
-            </div>
-            <p className="text-sm text-gray-500">
-              {product.description}
-            </p>
+          <div className="mt-2 flex items-center gap-2 text-sm">
+            <span className="font-semibold line-through">
+              {formatPrice(product.basePrice)}
+            </span>
+            <span className="font-semibold">{formatPrice(product.price)}</span>
+          </div>
+          <p className="text-sm text-gray-500">{product.description}</p>
         </div>
       </div>
       {variants.length ? (
-        <div className="mt-3 flex flex-wrap gap-2" aria-label={`Warna ${product.name}`}>
+        <div
+          className="mt-3 flex flex-wrap gap-2"
+          aria-label={`Warna ${product.name}`}
+        >
           {variants.map((variant) => (
             <button
               key={variant.color}
@@ -105,6 +127,8 @@ function ProductModal({
   onColorChange: (color: string) => void;
   onClose: () => void;
 }) {
+  const hasFreeInsole = product.freeInsole?.toLowerCase() === "yes";
+
   return (
     <div
       className="fixed inset-0 z-50 grid place-items-center bg-black/50 p-4"
@@ -125,12 +149,19 @@ function ProductModal({
         >
           <X size={20} />
         </button>
-        <div className="bg-secondary">
+        <div className="relative bg-secondary">
           <img
             src={image}
             alt={product.name}
             className="aspect-[5/5] h-full w-full object-cover"
           />
+          {hasFreeInsole ? (
+            <img
+              src={freeInsoleImage}
+              alt="Gratis insole"
+              className="absolute bottom-4 right-4 z-10 h-24 w-24 object-contain sm:h-28 sm:w-28"
+            />
+          ) : null}
         </div>
         <div className="p-6 md:p-8">
           <p className="text-sm font-semibold text-primary">
@@ -138,7 +169,7 @@ function ProductModal({
           </p>
           <h2
             id={`product-${product.id}-title`}
-            className="mt-2 text-2xl font-semibold text-foreground"
+            className="poppins mt-2 text-2xl font-semibold text-foreground"
           >
             {product.name}
           </h2>

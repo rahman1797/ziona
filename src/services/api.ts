@@ -1,10 +1,10 @@
 const productsApiUrl =
   process.env.GOOGLE_PRODUCTS_API_URL ??
   "https://script.google.com/macros/s/AKfycbwV83JCBIZ6cwYK8oXSkQKf_mXkYfcCaC0UJ1Xj6Vr0CgD2WcsQhnHJRDLhrXW6qGtg/exec";
-const productsApiFunction =
-  process.env.GOOGLE_PRODUCTS_API_FUNCTION ?? "doGet";
+const productsApiFunction = process.env.GOOGLE_PRODUCTS_API_FUNCTION ?? "doGet";
 const productsApiAccessToken = process.env.GOOGLE_APPS_SCRIPT_ACCESS_TOKEN;
 const revalidateSeconds = 300;
+const requestTimeoutMs = 8000;
 
 export async function getProductsJson(): Promise<unknown | null> {
   if (!productsApiUrl) return null;
@@ -12,19 +12,29 @@ export async function getProductsJson(): Promise<unknown | null> {
   const usesAppsScriptRun = productsApiUrl.includes("/v1/scripts/");
   if (usesAppsScriptRun && !productsApiAccessToken) return null;
 
-  const response = await fetch(productsApiUrl, {
-    method: usesAppsScriptRun ? "POST" : "GET",
-    headers: {
-      ...(usesAppsScriptRun ? { "Content-Type": "application/json" } : {}),
-      ...(productsApiAccessToken
-        ? { Authorization: `Bearer ${productsApiAccessToken}` }
-        : {}),
-    },
-    body: usesAppsScriptRun
-      ? JSON.stringify({ function: productsApiFunction })
-      : undefined,
-    next: { revalidate: revalidateSeconds },
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), requestTimeoutMs);
+
+  let response: Response;
+
+  try {
+    response = await fetch(productsApiUrl, {
+      method: usesAppsScriptRun ? "POST" : "GET",
+      headers: {
+        ...(usesAppsScriptRun ? { "Content-Type": "application/json" } : {}),
+        ...(productsApiAccessToken
+          ? { Authorization: `Bearer ${productsApiAccessToken}` }
+          : {}),
+      },
+      body: usesAppsScriptRun
+        ? JSON.stringify({ function: productsApiFunction })
+        : undefined,
+      next: { revalidate: revalidateSeconds },
+      signal: controller.signal,
+    });
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     throw new Error(`Products API responded with ${response.status}`);

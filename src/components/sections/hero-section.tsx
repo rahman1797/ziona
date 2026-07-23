@@ -15,7 +15,7 @@ export function HeroSection({ banner }: { banner: HeroBanner }) {
           <div className="flex flex-col justify-center items-center md:items-start gap-2">
             <div className="w-max text-center flex flex-col justify-center md:justify-start items-center md:items-start">
               <Image src={logo} alt="Ziona" className="h-20 lg:h-[7.5rem] w-auto ml-0" />
-              <h1 className="uppercase font-bold text-lg md:text-lg lg:text-2xl">Style Meets Comfort</h1>
+              <h1 className="poppins uppercase font-bold text-lg md:text-lg lg:text-2xl">Style Meets Comfort</h1>
             </div>
           </div>
           <p className="text-gray-600 text-sm md:text-lg text-center md:text-left md:max-w-[22rem] lg:max-w-7xl">
